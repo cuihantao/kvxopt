@@ -12,7 +12,6 @@ pool:
 steps:
 
 - script:
-    choco install mingw
     set path=%path%;c:\Python27;c:\MinGW\bin;c:\MinGW\msys\1.0\bin
   displayName: 'Install mingw'
 
