@@ -19,7 +19,9 @@ steps:
   inputs:
     script: |
       curl http://www.netlib.org/blas/blas.tgz -o blas.tar.gz
+      tar -xvf blas.tar.gz
       curl http://www.netlib.org/lapack/lapack-3.4.0.tgz -o lapack-3.4.0.tar.gz
+      tar -xvf lapack-3.4.0.tar.gz
   displayName: 'Download blas and lapack'
 
 - task: ExtractFiles@1
