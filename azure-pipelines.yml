@@ -18,24 +18,27 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      curl http://www.netlib.org/blas/blas.tgz
-      curl http://www.netlib.org/lapack/lapack-3.4.0.tgz
+      wget http://www.netlib.org/blas/blas.tgz
+      wget http://www.netlib.org/lapack/lapack-3.4.0.tgz
   displayName: 'Download blas and lapack'
 
 - task: ExtractFiles@1
   inputs:
     archiveFilePatterns: '*.tgz'
+    destinationFolder: 
 
-- powershell: 
-    cd BLAS
-    sed 's/_LINUX/_WIN/' make.inc -i
-    make
-    cp blas_WIN.a ../libblas.a
-    cd ..
-    cd lapack-3.4.0
-    cp make.inc.example make.inc
-    make lapacklib 
-    cp liblapack.a ..
+- task: CmdLine@2
+  inputs:
+    script: |
+      cd BLAS
+      sed 's/_LINUX/_WIN/' make.inc -i
+      make
+      cp blas_WIN.a ../libblas.a
+      cd ..
+      cd lapack-3.4.0
+      cp make.inc.example make.inc
+      make lapacklib 
+      cp liblapack.a ..
   displayName: 'Get blas/LAPACK'
 
 
