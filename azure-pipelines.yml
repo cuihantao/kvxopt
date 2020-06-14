@@ -20,28 +20,24 @@ steps:
     script: |
       curl http://www.netlib.org/blas/blas.tgz -o blas.tar.gz
       tar -xvf blas.tar.gz
-      curl http://www.netlib.org/lapack/lapack-3.4.0.tgz -o lapack-3.4.0.tar.gz
-      tar -xvf lapack-3.4.0.tar.gz
-  displayName: 'Download blas and lapack'
-
-- task: ExtractFiles@1
-  inputs:
-    archiveFilePatterns: '*.tar.gz'
-    destinationFolder: 
-
-- task: CmdLine@2
-  inputs:
-    script: |
       cd BLAS
       sed 's/_LINUX/_WIN/' make.inc -i
       make
       cp blas_WIN.a ../libblas.a
       cd ..
+
+  displayName: 'Compile blas'
+- task: CmdLine@2
+  inputs:
+    script: |
+      curl http://www.netlib.org/lapack/lapack-3.4.0.tgz -o lapack-3.4.0.tar.gz
+      tar -xvf lapack-3.4.0.tar.gz
       cd lapack-3.4.0
       cp make.inc.example make.inc
       make lapacklib 
       cp liblapack.a ..
-  displayName: 'Get blas/LAPACK'
+  displayName: 'Compile LAPACK'
+
 
 
 - script: echo Hello, world!
