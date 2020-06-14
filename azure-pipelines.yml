@@ -10,11 +10,31 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
+
+- script:
+    choco install mingw
+    set path=%path%;c:\Python27;c:\MinGW\bin;c:\MinGW\msys\1.0\bin
+  displayName: 'Install mingw'
+
+- powershell: 
+    curl http://www.netlib.org/blas/blas.tgz
+    tar -xvf blas.tgz
+    cd BLAS
+    sed 's/_LINUX/_WIN/' make.inc -i
+    make && cp blas_WIN.a ../libblas.a
+    cd ..
+    curl http://www.netlib.org/lapack/lapack-3.4.0.tgz
+    tar -xvf lapack-3.4.0.tgz
+    cd lapack-3.4.0
+    cp make.inc.example make.inc
+    make lapacklib && cp liblapack.a ..
+  displayName: 'Get blas/LAPACK'
+
+
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: choco install msys2
-  displayName: 'Instalar choco'
+
 
 
 - script: |
