@@ -18,13 +18,13 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      wget http://www.netlib.org/blas/blas.tgz
-      wget http://www.netlib.org/lapack/lapack-3.4.0.tgz
+      curl http://www.netlib.org/blas/blas.tgz -o blas.tar.gz
+      curl http://www.netlib.org/lapack/lapack-3.4.0.tgz -o lapack-3.4.0.tar.gz
   displayName: 'Download blas and lapack'
 
 - task: ExtractFiles@1
   inputs:
-    archiveFilePatterns: '*.tgz'
+    archiveFilePatterns: '*.tar.gz'
     destinationFolder: 
 
 - task: CmdLine@2
