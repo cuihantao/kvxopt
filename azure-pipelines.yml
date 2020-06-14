@@ -15,9 +15,11 @@ steps:
     set path=%path%;c:\Python27;c:\MinGW\bin;c:\MinGW\msys\1.0\bin
   displayName: 'Install mingw'
 
-- powershell: 
-    curl http://www.netlib.org/blas/blas.tgz
-    curl http://www.netlib.org/lapack/lapack-3.4.0.tgz
+- task: CmdLine@2
+  inputs:
+    script: |
+      curl http://www.netlib.org/blas/blas.tgz
+      curl http://www.netlib.org/lapack/lapack-3.4.0.tgz
   displayName: 'Download blas and lapack'
 
 - task: ExtractFiles@1
